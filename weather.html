@@ -77,7 +77,7 @@
         <h1 class="mui-title">
             <!-- 顶部搜索部分 -->
             <div class="mui-input-row">
-                <input type="search" id="input-serach" class="mui-input-clear" placeholder="请输入你要搜索的城市">
+                <input type="search" id="input-serach" class="mui-input-clear" placeholder="默认城市西安，请输入你要搜索的城市">
             </div>
             <!-- 搜索结束 -->
         </h1>
@@ -188,9 +188,12 @@
     // }
     // })
 </script>
-
+<script src="js/getdata.js"></script>
+<script src="js/getdetail.js"></script>
 <script>
     $(function () {
+        getdata();
+        getdetail();
         $("#input-serach").on("change", function () {
             var city = $("#input-serach").val();
             console.log(city);
@@ -207,7 +210,7 @@
                 dataType: 'jsonp',
                 // 默认使用success
                 success: function (result) {
-                    console.log(result);
+                    // console.log(result);
                     // console.log(result.results[0].index)
                     if (result.error == 0) {
                         var html = template("weatherTemp", {
@@ -236,7 +239,7 @@
             var city = $("#input-serach").val();
             $.ajax({
                 // 跨域只能通过get来请求
-                type: "post",
+                type: "get",
                 url: "http://api.map.baidu.com/telematics/v3/weather?location=" + city,
                 data: {
                     "ak": "zVo5SStav7IUiVON0kuCogecm87lonOj",
@@ -246,12 +249,12 @@
                 dataType: 'jsonp',
                 // 默认使用success
                 success: function (result) {
-                    // console.log(result);
+                    console.log(result);
                     // console.log(result.results[0].index)
-                    var html1 = template("detailTemp", {
-                        "item1": result.results[0].index
-                    });
-                    document.querySelector("#detail-box").innerHTML = html1;
+                    // var html1 = template("detailTemp", {
+                        // "item1": result.results[0].index
+                    // });
+                    // document.querySelector("#detail-box").innerHTML = html1;
                 }
             })
 
